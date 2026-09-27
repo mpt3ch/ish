@@ -1,0 +1,5 @@
+# Robinhood CLI Requirements
+# Install with: pip install -r requirements-robinhood.txt
+
+robin_stocks>=2.2.0
+requests>=2.28.0

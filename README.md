@@ -20,6 +20,24 @@ For the current status of the project, check the issues tab, and the commit logs
 - [Wiki with help and tutorials](https://github.com/ish-app/ish/wiki)
 - [README中文](https://github.com/ish-app/ish/blob/master/README_ZH.md) (如若未能保持最新，请提交PR以更新)
 
+## Robinhood Integration
+
+iSH now includes Robinhood trading integration! Trade stocks directly from your iOS device using the command line.
+
+- [Robinhood CLI Setup Guide](ROBINHOOD_SETUP.md) - Complete installation and usage guide
+- `tools/robinhood-cli.py` - Main trading CLI tool
+- `examples/` - Example scripts for common trading patterns
+
+Quick start:
+```bash
+pip install robin_stocks
+tools/robinhood-cli.py login
+tools/robinhood-cli.py quote AAPL
+tools/robinhood-cli.py portfolio
+```
+
+See [ROBINHOOD_SETUP.md](ROBINHOOD_SETUP.md) for full documentation.
+
 # Hacking
 
 This project has a git submodule, make sure to clone with `--recurse-submodules` or run `git submodule update --init` after cloning.
