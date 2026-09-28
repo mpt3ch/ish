@@ -24,7 +24,7 @@ export ISH_CFLAGS = $ISH_CFLAGS
 export LIB_ISH_EMU = $LIB_ISH_EMU
 END
 
-defconfig=app_defconfig
+defconfig=ish_defconfig
 if [[ "$srctree/arch/ish/configs/$defconfig" -nt "$objtree/.config" ]]; then
     make -C "$srctree" O="$(realpath "$objtree")" "${makeargs[@]}" "$defconfig"
 fi
