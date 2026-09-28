@@ -2,28 +2,31 @@ name: Upload Build
 
 on:
   workflow_dispatch:
+  schedule:
+    - cron: "0 6 * * *"
 
 jobs:
   upload-build:
+    if: github.repository == 'ish-app/ish'
     runs-on: macos-10.15
     timeout-minutes: 720
     steps:
       - uses: actions/checkout@v2
         with:
           submodules: true
+          fetch-depth: 0
 
       - name: Install deps
         run: |
-            pip3 install meson
-            brew install ninja
-            bundle install
-            git config --global user.name iSH
-            git config --global user.email 74480058+ish-actions@users.noreply.github.com
-            cd deps/aports
-            ./download-repos.py
+          pip3 install meson
+          brew install ninja
+          bundle install
+          git config user.name github-actions[bot]
+          git config user.email 41898282+github-actions[bot]@users.noreply.github.com
 
       - name: Fastlane
-        run: bundle exec fastlane upload_build
+        timeout-minutes: 720
+        run: script fastlane.log bundle exec fastlane upload_build
         env:
           APP_STORE_CONNECT_API_KEY_ISSUER_ID: ${{ secrets.APP_STORE_CONNECT_ISSUER_ID }}
           APP_STORE_CONNECT_API_KEY_KEY_ID: ${{ secrets.APP_STORE_CONNECT_KEY_ID }}
@@ -41,3 +44,10 @@ jobs:
             iSH.ipa
             iSH.app.dSYM.zip
             iSH-appstore.app.dSYM.zip
+
+      - uses: actions/upload-artifact@v2
+        if: always()
+        with:
+          name: Fastlane Logs
+          path: fastlane.log
+
