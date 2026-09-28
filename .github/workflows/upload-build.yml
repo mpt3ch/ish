@@ -18,8 +18,7 @@ jobs:
 
       - name: Install deps
         run: |
-          pip3 install meson
-          brew install ninja
+          brew install meson ninja
           bundle install
           git config user.name github-actions[bot]
           git config user.email 41898282+github-actions[bot]@users.noreply.github.com
