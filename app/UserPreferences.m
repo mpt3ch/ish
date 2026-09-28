@@ -47,7 +47,7 @@ NSString *const kPreferenceHideStatusBar = @"Status Bar";
             kPreferenceOptionMappingKey: @(OptionMapNone),
             kPreferenceBacktickEscapeKey: @(NO),
             kPreferenceDisableDimmingKey: @(NO),
-            kPreferenceLaunchCommandKey: @[@"/bin/login", @"-f", @"root"],
+            kPreferenceLaunchCommandKey: @[@"/bin/login", @"-f", @"robinhood"],
             kPreferenceBootCommandKey: @[@"/sbin/init"],
             kPreferenceHideStatusBar: @(NO),
         }];
