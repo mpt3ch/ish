@@ -27,7 +27,7 @@ if get_option('kernel') == 'linux'
         include_directories: [include_directories(
             'linux/arch/ish/include',
             'linux/arch/ish/include/generated',
-            'linux/arch/ish/include/ishemu',
+            'linux/arch/ish/include/emu',
             'linux/include',
             'linux/arch/ish/include/uapi',
             'linux/arch/ish/include/generated/uapi',
