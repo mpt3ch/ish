@@ -10,22 +10,23 @@ permissions:
 
 jobs:
   build-linux:
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-latest
     strategy:
+      fail-fast: false
       matrix:
         cc: [clang, gcc]
         kernel: [ish, linux]
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
         with:
             submodules: true
-      - uses: actions/setup-python@v2
+      - uses: actions/setup-python@v5
         with:
             python-version: '3.x'
       - name: Install dependencies
         run: |
           sudo apt-get update
-          sudo apt-get install libarchive-dev
+          sudo apt-get install -y libarchive-dev
           pip3 install meson ninja
       - name: Clone Linux
         if: matrix.kernel == 'linux'
@@ -43,10 +44,11 @@ jobs:
   build-mac:
     runs-on: macos-latest
     strategy:
+      fail-fast: false
       matrix:
         kernel: [ish, linux]
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
         with:
             submodules: true
       - name: Install dependencies
@@ -57,7 +59,7 @@ jobs:
         run: deps/clone-linux.sh
       - name: Build
         if: matrix.kernel == 'ish'
-        run: xcodebuild -project iSH.xcodeproj -scheme iSH -arch arm64 -sdk iphoneos CODE_SIGNING_ALLOWED=NO
+        run: xcodebuild -project iSH.xcodeproj -scheme iSH -arch arm64 -sdk iphoneos CODE_SIGNING_ALLOWED=NO IPHONEOS_DEPLOYMENT_TARGET=12.0
       - name: Build
         if: matrix.kernel == 'linux'
-        run: xcodebuild -project iSH.xcodeproj -scheme iSH+Linux -arch x86_64 -sdk iphonesimulator CODE_SIGNING_ALLOWED=NO
+        run: xcodebuild -project iSH.xcodeproj -scheme iSH+Linux -arch x86_64 -sdk iphonesimulator CODE_SIGNING_ALLOWED=NO IPHONEOS_DEPLOYMENT_TARGET=12.0
