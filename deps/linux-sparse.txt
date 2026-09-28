@@ -9,6 +9,7 @@ Kconfig*
 /arch/x86/include/uapi/
 /arch/x86/entry/syscalls/
 /arch/x86/kernel/sys_ia32.c
+/arch/x86/tools/
 /arch/um/scripts/Makefile.rules
 
 !/drivers/
@@ -54,6 +55,7 @@ Kconfig*
 
 !/include/linux/*/
 /include/linux/sched/
+/include/linux/atomic/
 /include/linux/device/
 /include/linux/byteorder/
 /include/linux/netfilter/
@@ -71,6 +73,8 @@ Kconfig*
 
 !/sound
 !/tools
+/tools/include/
+/tools/arch/
 !/Documentation
 
 !/include/uapi/linux/netfilter/xt_connmark.h

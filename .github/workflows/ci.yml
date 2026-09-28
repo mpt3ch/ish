@@ -5,24 +5,27 @@ on:
   pull_request:
       branches: [master]
 
+permissions:
+  contents: read
+
 jobs:
   build-linux:
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-latest
     strategy:
       matrix:
         cc: [clang, gcc]
         kernel: [ish, linux]
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
         with:
             submodules: true
-      - uses: actions/setup-python@v2
+      - uses: actions/setup-python@v4
         with:
             python-version: '3.x'
       - name: Install dependencies
         run: |
           sudo apt-get update
-          sudo apt-get install libarchive-dev
+          sudo apt-get install -y libarchive-dev
           pip3 install meson ninja
       - name: Clone Linux
         if: matrix.kernel == 'linux'
@@ -38,18 +41,17 @@ jobs:
         run: ninja -C build test
 
   build-mac:
-    runs-on: macos-10.15
+    runs-on: macos-latest
     strategy:
       matrix:
         kernel: [ish, linux]
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
         with:
             submodules: true
       - name: Install dependencies
         run: |
-          brew install llvm ninja libarchive
-          pip3 install meson
+          brew install llvm ninja libarchive meson
       - name: Clone Linux
         if: matrix.kernel == 'linux'
         run: deps/clone-linux.sh
